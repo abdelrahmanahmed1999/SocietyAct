@@ -26,7 +26,7 @@ select{
 $quarPost="-1";
 $tmpfilename = "";
 $user_id="-1";
-if(isset($_GET["SEARCH"]))
+if(isset($_GET["user_id"]) && isset($_GET["quar"]))
 {
 	$user_id=$_GET["user_id"];
 	$quarPost=$_GET["quar"];
@@ -37,9 +37,8 @@ if(isset($_GET["SEARCH"]))
 
 <h1 style='font-weight:bold;font-size:28px;color: steelblue;text-align:center;'  class='web'>خطـــة الأنــشــطــة المــســتقبليــة بالعام الجامعى</h1>
 
-	<select name="user_id" class="form-control" >
-		<option value="-1" selected disabled>اختر الجامعة</option>
-
+	<select name="user_id" class="form-control" required>
+		<option  selected disabled>اختر الجامعة</option>
 		<?php
 			foreach ($users as $user) {
 				$selected =  $user_id == $user['USER_ID'] ? 'selected' : '';
@@ -48,18 +47,14 @@ if(isset($_GET["SEARCH"]))
 				echo '</option>';
 			}
 		?>
-
-
-
 	</select>
-	<select name="quar" class="form-control">
-		<option value="-1" selected disabled>اختر الربع</option>
+	<select name="quar" class="form-control" required>
+		<option selected disabled>اختر الربع</option>
 		<option value="1" <?php if($quarPost=="1") echo "selected"?>>الربع الأول</option>
 		<option value="2" <?php if($quarPost=="2") echo "selected"?>>الربع الثاني</option>
 		<option value="3" <?php if($quarPost=="3") echo "selected"?>>الربع الثالث</option>
 		<option value="4" <?php if($quarPost=="4") echo "selected"?>>الربع الأخير</option>
 		<option value="0" <?php if($quarPost=="0") echo "selected"?>>الكل</option>
-
 	</select>
 	
 	<button name = "SEARCH" type="submit" class="site-btn btn">بحث</button>
