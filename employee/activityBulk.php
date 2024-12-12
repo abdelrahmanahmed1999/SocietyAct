@@ -41,10 +41,8 @@ if(isset($_GET["SEARCH"]))
 ?>
 <form method="get"  enctype="multipart/form-data" dir="rtl">
 
-<div style="color:red;margin-bottom:20px;">برجاء الإلتزام بتزيل ملف الأنشطة المستقبلية واضافة الأنشطة المستقبلية دون تعديل شكل الملف</div>
-	<div>
-	</div>
-	<div>اختر الجامعة و الربع </div>
+<h1 style='font-weight:bold;font-size:28px;color: steelblue;text-align:center;'  class='web'>خطـــة الأنــشــطــة المــســتقبليــة بالعام الجامعى</h1>
+
 	<select name="user_id" class="form-control" >
 		<option value="-1" selected disabled>اختر الجامعة</option>
 
