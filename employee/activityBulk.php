@@ -1,5 +1,4 @@
 <?php
-include("../include/connection.php");
 
 include ('header.php');
 
@@ -15,11 +14,6 @@ include ('header.php');
 
 ?>
 <style>
-th, td{
-	padding-left:5px;
-	padding-right:5px;
-	border:1px solid;
-}
 
 
 select{
