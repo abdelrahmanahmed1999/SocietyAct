@@ -34,7 +34,14 @@ include ('header.php');
                             <a href="plan.php" class="style1"><span style="color:red">الخــــطـــة المـــجـــمـــعـــة</span></a> </div>
 
                     </td>
-                </tr>				  
+                </tr>
+                <tr >
+                    <td height="80">
+                        <div align="right" dir="rtl">
+                            <a href="activityBulk.php" class="style1"><span style="color:red">خطـــة الأنــشــطــة المــســتقبليــة بالعام الجامعى</span></a> </div>
+
+                    </td>
+                </tr>					  
 				   <tr hidden>
                     <td height="80">
                         <div align="right" dir="rtl">

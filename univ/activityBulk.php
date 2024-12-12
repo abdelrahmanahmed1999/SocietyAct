@@ -147,6 +147,7 @@ style="width:400px;margin:10px;display:block;height:2em;font-size:20px;border: 1
 	<?php
 	$prvYear="";
 	$prvQuar="";
+	echo $tmpfilename;
 	foreach (glob('../uploads/futureAct/'.$tmpfilename.'/*.xlsx') as $filename) {
 		$p = pathinfo($filename);
 		$curYear = substr($p['basename'], 0, 4);
