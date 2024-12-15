@@ -4,7 +4,7 @@ include ('header.php');
 
 
 
-	$result = $con->query("SELECT USER_ID, Name FROM user");
+	$result = $con->query("SELECT ID, name FROM university");
 
 	if ($result) {
 		$users = $result->fetch_all(MYSQLI_ASSOC);
@@ -41,9 +41,9 @@ if(isset($_GET["user_id"]) && isset($_GET["quar"]))
 		<option  selected disabled>اختر الجامعة</option>
 		<?php
 			foreach ($users as $user) {
-				$selected =  $user_id == $user['USER_ID'] ? 'selected' : '';
-				echo '<option value="' . htmlspecialchars($user['USER_ID']) . '" ' . $selected . '>';
-				echo htmlspecialchars($user['Name']);
+				$selected =  $user_id == $user['ID'] ? 'selected' : '';
+				echo '<option value="' . htmlspecialchars($user['ID']) . '" ' . $selected . '>';
+				echo htmlspecialchars($user['name']);
 				echo '</option>';
 			}
 		?>
@@ -57,7 +57,7 @@ if(isset($_GET["user_id"]) && isset($_GET["quar"]))
 		<option value="0" <?php if($quarPost=="0") echo "selected"?>>الكل</option>
 	</select>
 	
-	<button name = "SEARCH" type="submit" class="site-btn btn">بحث</button>
+	<button  type="submit" class="site-btn btn">بحث</button>
 	<div>
 	<?php
 	$prvYear="";
