@@ -33,6 +33,8 @@ $topicselect = stripslashes($topicselect);
 $typeselect = stripslashes($typeselect);
 $id = $_POST['idd'];
 $taklefselect = $_POST['taklefselect'];
+$party_involved = $_POST['party_involved'];
+
 $wafed_student = $_POST['wafed_student'];
 $egy_student = $_POST['egy_student'];
 $khas_student  = $_POST['khas_student'];
@@ -42,8 +44,7 @@ $m_enroll_male = $_POST['m_enroll_male'];
 //echo $id ;
 
 //echo "err";
-$goal=$_POST["goal"];
-
+$goals = implode(',', $_POST['goal']);
 $n = stripslashes(trim($_POST['b_enroll_male']));
 //$c = stripslashes(trim($_POST['myfile']));
 
@@ -226,10 +227,10 @@ else
 
 
 
-		$stmt = $con->prepare("INSERT INTO activity (Date,End_Date,title,activity_desc,pdf_image,university_ID,activity_natural_ID,activity_type_ID,activity_top_ID,fk_coll,fk_taklefselect,no_student,wafed_student,egy_student,khas_student,gehaaa) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		$stmt = $con->prepare("INSERT INTO activity (Date,End_Date,title,activity_desc,pdf_image,university_ID,activity_natural_ID,activity_type_ID,activity_top_ID,fk_coll,fk_taklefselect,no_student,wafed_student,egy_student,khas_student,gehaaa,goal,party_involved) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 						
-						 $stmt->bind_param("ssssssssssssssss",$Nu,$End_date,$n,$comm,$destinationn,$univselect,$topicselect,$typeselect,$id,$college_select,$taklefselect,$no_student,$wafed_student,$egy_student,$khas_student,$m_enroll_male);
+						 $stmt->bind_param("ssssssssssssssssss",$Nu,$End_date,$n,$comm,$destinationn,$univselect,$topicselect,$typeselect,$id,$college_select,$taklefselect,$no_student,$wafed_student,$egy_student,$khas_student,$m_enroll_male,$goals,$party_involved);
 					if($stmt->execute())
 					{
 						// Echo Success Message
@@ -386,12 +387,11 @@ else
 ///////////////////////////////////////////////
 
 
-	
-
-		$stmt = $con->prepare("INSERT INTO activity (Date,End_Date,title,activity_desc,pdf_image,university_ID,activity_natural_ID,activity_type_ID,activity_top_ID,fk_coll,fk_taklefselect,no_student,wafed_student,egy_student,khas_student,gehaaa,goal) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		
+		$stmt = $con->prepare("INSERT INTO activity (Date,End_Date,title,activity_desc,pdf_image,university_ID,activity_natural_ID,activity_type_ID,activity_top_ID,fk_coll,fk_taklefselect,no_student,wafed_student,egy_student,khas_student,gehaaa,goal,party_involved) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 						
-						 $stmt->bind_param("sssssssssssssssss",$Nu,$End_date,$n,$comm,$destinationn,$univselect,$topicselect,$typeselect,$id,$college_select,$taklefselect,$no_student,$wafed_student,$egy_student,$khas_student,$m_enroll_male,$goal);
+						 $stmt->bind_param("ssssssssssssssssss",$Nu,$End_date,$n,$comm,$destinationn,$univselect,$topicselect,$typeselect,$id,$college_select,$taklefselect,$no_student,$wafed_student,$egy_student,$khas_student,$m_enroll_male,$goals,$party_involved);
 					if($stmt->execute())
 					{
 						// Echo Success Message

@@ -116,7 +116,7 @@ if(isset($_POST["ADD"]))
 <a dir="rtl" class="btn btn-info" href="SocietyServAct_Template.xlsx" target="_blank" 
 style="width:400px;margin:10px;display:block;height:2em;font-size:20px;border: 1px solid #012880;background-image: linear-gradient(-180deg, #FF89D6 0%, #C01F9E 100%);
 	box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.50),0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset, 0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
-							0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;">تحميل نموذج لملف الخطة المستقبلية بامتداد xlsx</a>
+							0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;">تنزيل نموذج للخطة المستقبلية الربع السنوية  بامتداد xlsx</a>
 
 <div style="color:red;margin-bottom:20px;">برجاء الإلتزام بتزيل ملف الأنشطة المستقبلية واضافة الأنشطة المستقبلية دون تعديل شكل الملف</div>
 	<label>إضافة خطة أنشطة</label>

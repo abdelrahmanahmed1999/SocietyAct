@@ -467,7 +467,7 @@ enctype="multipart/form-data" >
           
 <!------------------------------------------------>
   
-				  <tr>
+			<tr>
                 <td>
                     <div align="right"> تم التكليف من  جهة</div>
                 </td>
@@ -476,7 +476,7 @@ enctype="multipart/form-data" >
                     <div align="right">
 					<select name="taklefselect" id="taklefselect" 
 
- oninvalid="this.setCustomValidity('يجب اختيار طبيعة النشاط')"
+ 				oninvalid="this.setCustomValidity('يجب اختيار طبيعة النشاط')"
                                 oninput="setCustomValidity('')" onchange="validateForm()"> 
 								
 								<?php 
@@ -593,8 +593,30 @@ enctype="multipart/form-data" >
 						?>
 						</select>
                     </div>
-                </td></tr>
+                </td>
+			
+				</tr>
 				 <!------------------------------------------------>
+
+				<tr>
+					<td>
+						<div align="right"> الجهة المشاركة فى تكليف النشاط</div>
+						<p class="style4"  style="color:red">
+								الجهات (وزارة التضامن و وزارة الصحة و غيرها) او كتابة لايوجد
+						</p>   
+					</td>
+
+					<td dir="rtl">
+						<div align="right">
+							<input type="text" id="party_involved" name="party_involved" required>  
+						</div>
+					</td>
+			
+				</tr>
+				 <!------------------------------------------------>
+
+
+
 				  <tr>
                 <td>
                     <div align="right"> مكان انعقاد النشــاط</div>
@@ -805,7 +827,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_1'>
 									<img src='../images/goal/1.png' title='القضاء على الفقر ' alt='القضاء على الفقر ' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_1' value="1">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_1' value="1" >  
 							</div>
 						</td>
 						<td>
@@ -813,7 +835,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_2'>
 									<img src='../images/goal/2.png' title='القضاء التام على الجوع' alt='القضاء التام على الجوع' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_2'  value="2">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_2'  value="2">
 							</div>
 						</td>
 						<td>
@@ -821,7 +843,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_3'>
 									<img src='../images/goal/3.png' title='الصحة الجيدة والرفاه' alt='الصحة الجيدة والرفاه' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_3'  value="3">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_3'  value="3">
 							</div>
 						</td>
 						<td>
@@ -829,7 +851,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_4'>
 									<img src='../images/goal/4.png' title='التعليم الجيد' alt='التعليم الجيد' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_4'  value="4">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_4'  value="4">
 							</div>
 						</td>
 
@@ -841,7 +863,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_5'>
 									<img src='../images/goal/5.png' title='المساواة بين الجنسين' alt='المساواة بين الجنسين' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_5'  value="5">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_5'  value="5">
 							</div>
 						</td>
 						<td>
@@ -849,7 +871,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_6'>
 									<img src='../images/goal/6.png' title='المياه النظيفة والنظافة الصحية' alt='المياه النظيفة والنظافة الصحية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_6'   value="6" >
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_6'   value="6" >
 							</div>
 						</td>
 						<td>
@@ -857,7 +879,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_7'>
 									<img src='../images/goal/7.png' title='طاقة نظيفة وبأسعار معقولة' alt='طاقة نظيفة وبأسعار معقولة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_7'  value="7">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_7'  value="7">
 							</div>
 						</td>
 						<td>
@@ -865,7 +887,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_8'>
 									<img src='../images/goal/8.png' title='العمل اللائق ونمو الاقتصاد' alt='العمل اللائق ونمو الاقتصاد' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_8'  value="8">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_8'  value="8">
 							</div>
 						</td>
 					</tr>
@@ -877,7 +899,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_9'>
 									<img src='../images/goal/9.png' title='الصناعة والابتكار الهياكل الأساسية' alt='الصناعة والابتكار الهياكل الأساسية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_9'  value="9">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_9'  value="9">
 							</div>
 						</td>
 						<td>
@@ -885,7 +907,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_10'>
 									<img src='../images/goal/10.png' title='الحد من أوجه عدم المساواة' alt='الحد من أوجه عدم المساواة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_10'  value="10">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_10'  value="10">
 							</div>
 						</td>
 						<td>
@@ -893,14 +915,14 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_11'>
 									<img src='../images/goal/11.png' title='مدن ومجتمعات محلية مستدامة' alt='مدن ومجتمعات محلية مستدامة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_11'  value="11">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_11'  value="11">
 							</div>
 						</td>
 						<td><div style='margin: 5px;padding: 2px;float:left;text-align:center;padding-bottom:15px;border:1px solid;'>
 								<label class="goallabel" style= 'display:block;' for='goal_12'>
 									<img src='../images/goal/12.png' title='الاستهلاك والإنتاج المسؤولان' alt='الاستهلاك والإنتاج المسؤولان' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_12'  value="12">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_12'  value="12">
 							</div>
 						</td>
 					</tr>
@@ -911,7 +933,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_13'>
 									<img src='../images/goal/13.png' title='العمل المناخي' alt='العمل المناخي' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_13'  value="13">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_13'  value="13">
 							</div>
 						</td>
 						<td>
@@ -919,7 +941,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_14'>
 									<img src='../images/goal/14.png' title='الحياة تحت الماء' alt='الحياة تحت الماء' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_14'  value="14">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_14'  value="14">
 							</div>
 						</td>
 						<td>
@@ -927,7 +949,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_15'>
 									<img src='../images/goal/15.png' title='الحياة في البر' alt='الحياة في البر' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_15'  value="15">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_15'  value="15">
 							</div>
 						</td>
 						<td>
@@ -935,7 +957,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_16'>
 									<img src='../images/goal/16.png' title='السلام والعدل والمؤسسات القوية' alt='السلام والعدل والمؤسسات القوية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_16'  value="16">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_16'  value="16">
 							</div>
 						</td>
 					</tr>
@@ -948,7 +970,7 @@ if($id==2)
 								<label class="goallabel" style= 'display:block;' for='goal_17'>
 									<img src='../images/goal/17.png' title='عقد الشراكات لتحقيق الأهداف' alt='عقد الشراكات لتحقيق الأهداف' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_17'  value="17">
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_17'  value="17">
 							</div>
 						</td>
 
@@ -1034,7 +1056,14 @@ include('footer.php');
 		//alert("hggggggg");
 		
 		   var univ_select = document.getElementById("univ_select").value;
-      
+		   const checkboxes = document.querySelectorAll("input[name='goal[]']");
+
+		   const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        
+			if (!isChecked) {
+				alert("يجب اختيار هدف واحد على الأقل!");
+				return false; 
+			}
 		
 	   if (univ_select.length == 0 || univ_select == -1) 
 		{

@@ -53,9 +53,8 @@ $taklef_id = "";
 $taklef_name = "";
 $university_ID = "";
 $university_name = "";
-$goal = "";
-
-$q = "SELECT activity.serial, activity.title, activity.pdf_image, activity.activity_desc, gehaaa, goal ,
+$party_involved="";
+$q = "SELECT activity.serial, activity.title, activity.pdf_image, activity.activity_desc, gehaaa, goal , party_involved ,
 	activity.Date, activity.End_Date, activity.wafed_student, activity.egy_student, activity.khas_student, activity.no_student,
 	activity.activity_natural_ID, activity_natural.name activity_natural_name, 
 	activity.activity_top_ID, activity_top.name activity_top_name, 
@@ -99,9 +98,11 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 	$college_ID = $row["fk_coll"];
 	$college_name = $row["college_name"];
 	$gehaaa = $row["gehaaa"];
-	$goal = $row["goal"];
+	$goal = $row['goal'] ?? ''; 
+	$goals = !empty($goal) ? array_map('intval', explode(',', $goal)) : [];
+	$party_involved = $row['party_involved'] ; 
 
-	
+
    $currentDate=date("Y-m-d");
    $currentDate2="'".date("Y-m-d")."'";
 //echo "gehaaa".$gehaaa;
@@ -133,10 +134,10 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 		$type_ID = $_POST["activity_type"];
 		$taklef_id = $_POST["fk_taklefselect"];
 		$college_ID = $_POST["college_select"];
-		
-		
 		$gehaaa = $_POST["gehaaa"];
-		$goal = $_POST["goal"];
+		$party_involved = $_POST["party_involved"];
+
+		$goals = implode(',', $_POST['goal']);
 
 		//echo "c".$currentDate;
 
@@ -262,14 +263,14 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 
 
 				
-				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=? ,activity_top_ID=?,pdf_image=?,goal=? where serial = $serial");
-				$stmtu->bind_param("ssssiiiisssssiss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$act_iddd,$destinationn,$goal);	
+				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=? ,activity_top_ID=?,pdf_image=?,goal=? , party_involved =? where serial = $serial");
+				$stmtu->bind_param("ssssiiiisssssisss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$act_iddd,$destinationn,$goals,$party_involved);	
 			}
 			else
 			{
 
-				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=? ,activity_top_ID=?,goal=?  where serial = $serial");
-				$stmtu->bind_param("ssssiiiissssssi",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$act_iddd,$goal);	
+				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=? ,activity_top_ID=?,goal=? , party_involved =? where serial = $serial");
+				$stmtu->bind_param("ssssiiiissssssss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$act_iddd,$goals,$party_involved);	
 			}    
 	    }
 		else
@@ -279,15 +280,15 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 			{
 
 
-				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=?, pdf_image=?, goal=? where serial = $serial");
-				$stmtu->bind_param("ssssiiiisssssss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$destinationn,$goal);
+				$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=?, pdf_image=?, goal=? , party_involved =? where serial = $serial");
+				$stmtu->bind_param("ssssiiiissssssss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$destinationn,$goals,$party_involved);
 					
 			}
 			else
 			{
 
-			$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=?,goal=? where serial = $serial");
-			$stmtu->bind_param("ssssiiiissssss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$goal);
+			$stmtu = $con->prepare("update activity set Date=?, End_Date=?, title=?, activity_desc=?, activity_natural_ID=?, activity_type_ID=?, fk_coll=?, fk_taklefselect=?, no_student=?, wafed_student=?, egy_student=?, khas_student=?, gehaaa=?,goal=? , party_involved =? where serial = $serial");
+			$stmtu->bind_param("ssssiiiisssssss",$Date,$End_Date,$title,$desc, $natural_ID, $type_ID, $college_ID, $taklef_id, $no_student,$wafed_student,$egy_student,$khas_student,$gehaaa,$goals,$party_involved);
 			}
 	    }
 		
@@ -296,6 +297,8 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 			// Echo Success Message
 			$theMsg = "<div class='alert alert-success'>تم التعديل بنجاح</div>";
 			echo $theMsg;
+			$goals = !empty($goals) ? array_map('intval', explode(',', $goals)) : [];
+
 		}
 	}
 	?>
@@ -435,6 +438,30 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 					<?php } ?>
 				</td>
 			</tr>
+
+
+
+
+			<tr>
+				<td> الجهة المشاركة</td>
+				<td colspan="2">
+				<?php if($canEdit) {?>
+					<input type="text" id="party_involved" name="party_involved" value="<?php echo $party_involved;?>" required>  
+
+				<?php } else {?>
+					<label style="font-weight:normal;"><?php echo $party_involved; ?></label>
+				<?php } ?>
+
+				</td>
+			</tr>
+
+
+
+
+
+
+
+
 			<?php }
 			if(!empty($gehaaa)||$canEdit) {
 			if($taklef_id == 5) {
@@ -583,6 +610,7 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 		<tr>
 			<td>أهداف البحث للتنميه المستدامه</td>
 
+
 			<td colspan="2">
 				<table>
 					<tr>
@@ -592,8 +620,8 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 									<img src='../images/goal/1.png' title='القضاء على الفقر ' alt='القضاء على الفقر ' width='150px'/>
 								</label>
 								
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_1' value="1"
-									<?php if($goal == '1'){ ?> checked <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_1' value="1"
+									<?php if (in_array('1', $goals)) { ?> checked <?php } ?>
 									<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 								
@@ -604,9 +632,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_2'>
 									<img src='../images/goal/2.png' title='القضاء التام على الجوع' alt='القضاء التام على الجوع' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_2'  value="2"
-									<?php if($goal == '2'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_2'  value="2"
+								<?php if (in_array('2', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -615,9 +643,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_3'>
 									<img src='../images/goal/3.png' title='الصحة الجيدة والرفاه' alt='الصحة الجيدة والرفاه' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_3'  value="3"
-									<?php if($goal == '3'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_3'  value="3"
+								<?php if (in_array('3', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -626,9 +654,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_4'>
 									<img src='../images/goal/4.png' title='التعليم الجيد' alt='التعليم الجيد' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_4'  value="4"
-									<?php if($goal == '4'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_4'  value="4"
+								<?php if (in_array('4', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -640,9 +668,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_5'>
 									<img src='../images/goal/5.png' title='المساواة بين الجنسين' alt='المساواة بين الجنسين' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_5'  value="5"
-									<?php if($goal == '5'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_5'  value="5"
+								<?php if (in_array('5', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -651,9 +679,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_6'>
 									<img src='../images/goal/6.png' title='المياه النظيفة والنظافة الصحية' alt='المياه النظيفة والنظافة الصحية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_6'   value="6" 
-									<?php if($goal == '6'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_6'   value="6" 
+								<?php if (in_array('6', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -662,9 +690,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_7'>
 									<img src='../images/goal/7.png' title='طاقة نظيفة وبأسعار معقولة' alt='طاقة نظيفة وبأسعار معقولة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_7'  value="7"
-									<?php if($goal == '7'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_7'  value="7"
+								<?php if (in_array('7', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -673,9 +701,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_8'>
 									<img src='../images/goal/8.png' title='العمل اللائق ونمو الاقتصاد' alt='العمل اللائق ونمو الاقتصاد' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_8'  value="8"
-									<?php if($goal == '8'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_8'  value="8"
+								<?php if (in_array('8', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -688,9 +716,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_9'>
 									<img src='../images/goal/9.png' title='الصناعة والابتكار الهياكل الأساسية' alt='الصناعة والابتكار الهياكل الأساسية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_9'  value="9"
-									<?php if($goal == '9'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_9'  value="9"
+								<?php if (in_array('9', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -699,9 +727,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_10'>
 									<img src='../images/goal/10.png' title='الحد من أوجه عدم المساواة' alt='الحد من أوجه عدم المساواة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_10'  value="10"
-									<?php if($goal == '10'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_10'  value="10"
+								<?php if (in_array('10', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -710,9 +738,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_11'>
 									<img src='../images/goal/11.png' title='مدن ومجتمعات محلية مستدامة' alt='مدن ومجتمعات محلية مستدامة' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_11'  value="11"
-									<?php if($goal == '11'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_11'  value="11"
+								<?php if (in_array('11', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -720,9 +748,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_12'>
 									<img src='../images/goal/12.png' title='الاستهلاك والإنتاج المسؤولان' alt='الاستهلاك والإنتاج المسؤولان' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_12'  value="12"
-									<?php if($goal == '12'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_12'  value="12"
+								<?php if (in_array('12', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -734,9 +762,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_13'>
 									<img src='../images/goal/13.png' title='العمل المناخي' alt='العمل المناخي' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_13'  value="13"
-									<?php if($goal == '13'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_13'  value="13"
+								<?php if (in_array('13', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -745,9 +773,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_14'>
 									<img src='../images/goal/14.png' title='الحياة تحت الماء' alt='الحياة تحت الماء' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_14'  value="14"
-									<?php if($goal == '14'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_14'  value="14"
+								<?php if (in_array('14', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -756,9 +784,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_15'>
 									<img src='../images/goal/15.png' title='الحياة في البر' alt='الحياة في البر' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_15'  value="15"
-									<?php if($goal == '15'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_15'  value="15"
+								<?php if (in_array('15', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -767,9 +795,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_16'>
 									<img src='../images/goal/16.png' title='السلام والعدل والمؤسسات القوية' alt='السلام والعدل والمؤسسات القوية' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_16'  value="16"
-									<?php if($goal == '16'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_16'  value="16"
+								<?php if (in_array('16', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -782,9 +810,9 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 								<label class="goallabel" style= 'display:block;' for='goal_17'>
 									<img src='../images/goal/17.png' title='عقد الشراكات لتحقيق الأهداف' alt='عقد الشراكات لتحقيق الأهداف' width='150px'/>
 								</label>
-								<input type='checkbox' class="goalcheckbox" name='goal' id='goal_17'  value="17"
-									<?php if($goal == '17'){ ?> checked <?php }?> 
-									<?php if(!$canEdit){ ?> disabled <?php }?> 
+								<input type='checkbox' class="goalcheckbox" name='goal[]' id='goal_17'  value="17"
+								<?php if (in_array('17', $goals)) { ?> checked <?php } ?>
+								<?php if(!$canEdit){ ?> disabled <?php }?> 
 								>
 							</div>
 						</td>
@@ -907,6 +935,14 @@ function validateForm() {
 		var End_Date = document.getElementById("End_Date").value;
 		var date = document.getElementById("Date").value;
 		var title = document.getElementById("title").value;
+		const checkboxes = document.querySelectorAll("input[name='goal[]']");
+
+			const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+			if (!isChecked) {
+				alert("يجب اختيار هدف واحد على الأقل!");
+				return false; 
+			}
 		/*alert('college_select');
 		alert(college_select);
 		alert('topicselect');
