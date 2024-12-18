@@ -61,7 +61,8 @@ $q = "SELECT activity.serial, activity.title, activity.pdf_image, activity.activ
 	activity.activity_type_ID, activity_type.name activity_type_name, 
 	activity.fk_taklefselect, taklef.name taklef_name, 
 	activity.university_ID, university.name university_name,
-	activity.fk_coll, college.name college_name 
+	activity.fk_coll, college.name college_name ,
+	partners.name as party_name
 	FROM `activity`
 	inner join activity_natural on activity_natural.ID=activity.activity_natural_ID
 	INNER join activity_top on activity_top.ID = activity.activity_top_ID
@@ -69,6 +70,8 @@ $q = "SELECT activity.serial, activity.title, activity.pdf_image, activity.activ
 	left join taklef on taklef.ID = activity.fk_taklefselect
 	inner join university on university.ID = activity.university_ID
     INNER JOIN college on college.ID = activity.fk_coll
+	INNER JOIN partners on partners.id = activity.party_involved
+
 	where activity.serial = $activityId";
 $stmt = $con->prepare($q);
 $stmt->execute();
@@ -101,7 +104,10 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 	$goal = $row['goal'] ?? ''; 
 	$goals = !empty($goal) ? array_map('intval', explode(',', $goal)) : [];
 	$party_involved = $row['party_involved'] ; 
+	$party_name = $row['party_name'] ; 
 
+
+	
 
    $currentDate=date("Y-m-d");
    $currentDate2="'".date("Y-m-d")."'";
@@ -443,23 +449,39 @@ if ($row = $res->fetch_array(MYSQLI_ASSOC))
 
 
 			<tr>
-				<td> الجهة المشاركة</td>
+				<td> الجهة المشاركة   <?php echo $party_name;?></td>
 				<td colspan="2">
-				<?php if($canEdit) {?>
-					<input type="text" id="party_involved" name="party_involved" value="<?php echo $party_involved;?>" required>  
+				<?php 
 
-				<?php } else {?>
-					<label style="font-weight:normal;"><?php echo $party_involved; ?></label>
-				<?php } ?>
+					$result = $con->query("SELECT id, name FROM partners");
+					$partners = $result->fetch_all(MYSQLI_ASSOC);
+
+					if($canEdit) {
+					?>
+						<select name="party_involved"  required >
+							<option  selected disabled>اختر الجهة المشاركة</option>
+							<?php
+								foreach ($partners as $partner) {
+									$selected =  $party_involved == $partner['id'] ? 'selected' : '';
+									echo '<option value="' . htmlspecialchars($partner['id']) . '" ' . $selected . '>';
+									echo htmlspecialchars($partner['name']);
+									echo '</option>';
+								}
+							?>
+
+						</select>
+					<?php
+					}
+					else{
+					?>
+						<label style="font-weight:normal;"><?php echo $party_name; ?></label>
+					<?php	
+					}
+				?>
+				
 
 				</td>
 			</tr>
-
-
-
-
-
-
 
 
 			<?php }

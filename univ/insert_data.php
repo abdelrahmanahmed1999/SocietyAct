@@ -597,7 +597,11 @@ enctype="multipart/form-data" >
 			
 				</tr>
 				 <!------------------------------------------------>
-
+				<?php
+					$filtered_partner_id="-1";
+					$result = $con->query("SELECT id, name FROM partners");
+					$partners = $result->fetch_all(MYSQLI_ASSOC);
+				?>
 				<tr>
 					<td>
 						<div align="right"> الجهة المشاركة فى تكليف النشاط</div>
@@ -608,7 +612,19 @@ enctype="multipart/form-data" >
 
 					<td dir="rtl">
 						<div align="right">
-							<input type="text" id="party_involved" name="party_involved" required>  
+							<!-- <input type="text" id="party_involved" name="party_involved" required>   -->
+							<select name="party_involved"  class="form-control" required>
+								<option  selected disabled>اختر الجهة المشاركة</option>
+								<?php
+									foreach ($partners as $partner) {
+										$selected =  $filtered_partner_id == $partner['id'] ? 'selected' : '';
+										echo '<option value="' . htmlspecialchars($partner['id']) . '" ' . $selected . '>';
+										echo htmlspecialchars($partner['name']);
+										echo '</option>';
+									}
+								?>
+
+							</select>
 						</div>
 					</td>
 			
